@@ -13,13 +13,15 @@ LIBFT = $(LIBFT_DIR)/libft.a
 MLX_DIR = minilibx-linux
 MLX = $(MLX_DIR)/libmlx.a
 
-INCLUDES = -Iinclude -I$(LIBFT_DIR) -I$(MLX_DIR)
+INCLUDES = -Iinc -I$(LIBFT_DIR) -I$(MLX_DIR)
 
 LDFLAGS = $(LIBFT) $(MLX) -lXext -lX11 -lm
 
-HEADERS = cub3d.h
+HEADERS = inc/cub3d.h
 
-SRCS = main.c
+SRCS = main.c \
+	parsing/check_args.c \
+	utils/error.c utils/get_next_line.c utils/get_next_line_utils.c
 
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 
@@ -36,7 +38,7 @@ $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)
 
 $(MLX):
-	$(MAKE) -C $(MLX_DIR)
+	$(MAKE) -C $(MLX_DIR) CC="cc -std=gnu17"
 
 clean:
 	$(MAKE) -C $(LIBFT_DIR) clean

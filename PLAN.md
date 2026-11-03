@@ -7,19 +7,35 @@
 ## Working rules
 - **Pair on everything.** Each task has a driver (writes and commits) and a navigator (reads, questions, tests). The driver alternates as listed below.
 - **One git branch per task:** `task/<id>-<name>` (e.g. `task/2.1-player`). Merge into `main` only when the task's "Done when" is met.
-- **Before every merge:** `norminette src inc` shows no errors, `make` builds with `-Wall -Wextra -Werror`, no leaks.
+- **Before every merge:** `norminette src inc` shows no errors (except `INVALID_HEADER`: we chose not to use the 42 header in our files), `make` builds with `-Wall -Wextra -Werror`, no leaks.
 - **Understand before you merge.** If code was written with help (a teammate, a peer, or an AI tool), both of us must be able to explain every line. This is a graded rule.
-- **Leaks:** valgrind does not start on Abdullah's machine (glibc too new), so `tests/run_parsing.sh` uses AddressSanitizer. Do a final valgrind run on a school machine.
+- **Leaks:** valgrind does not start on Abdullah's machine (glibc too new), so our test scripts (`tests/`, to be written) compile with AddressSanitizer (`-fsanitize=address`). Do a final valgrind run on a school machine.
+
+## Phase 0 – Project setup (added after review)
+The repo had gaps that block every later phase: `cub3d.h` sat in the root while the Makefile and norminette use `inc/`, `main.c` was empty, libft had no `get_next_line`, and MLX does not compile with a new gcc (C23 default).
+| ID | Task | Driver | Done when |
+|---|---|---|---|
+| 0.1 | Repo skeleton: move the header to `inc/cub3d.h` (with include guards), minimal `main.c`, `.gitignore` (objects, `libft.a`, MLX build files, binary), `tests/maps/`, Makefile fixes (`-Iinc`, MLX built with `CC="cc -std=gnu17"`) | Abdullah | `make` builds `cub3D` from clean, `make` again does not relink, `git status` shows no build files ✅ **DONE (Abdullah)** |
+| 0.2 | Add `get_next_line` (in `src/utils/`, reusing libft functions, no duplicates). Used to read the `.cub` file. The `ft_lst*` bonus functions are not needed and were not added | Abdullah | `libft.a` builds, GNL works on a file, stdin and an empty file with no leaks ✅ **DONE (Abdullah)** |
+| 0.3 | Shared structs in `inc/cub3d.h`: `t_config` (paths, colors), `t_map` (grid, width, height), `t_player`, `t_game`. Agree on them together before Phases 1 and 3 start | Abdullah | both agree; header passes norminette ✅ **DONE (Abdullah)** |
+| 0.4 | Directory layout: `src/parsing/`, `src/render/`, `src/utils/` (norm: max 5 functions per file, max 25 lines per function) and a central `free_all` / `error_exit` helper | Abdullah | Makefile lists all files; helper frees everything on any error path ✅ **DONE (Abdullah)** |
+
+Notes for the next phases (from what 0.1-1.1 taught us):
+- Every error path must end in `free_game`, and `get_next_line(-1)` must be called if we stop reading before the end of the file (it frees the static buffer).
+- Blank lines come back from GNL as `"\n"`, so the parser can see them (needed to reject empty lines inside the map).
+- Each new parsing task should come with its own test script and maps in `tests/` (the old `run_args.sh` was deleted; recreate a single `tests/run_parsing.sh` that covers 1.x and 2.x).
+- Norm limits: max 25 lines per function, max 5 functions per file, max 4 parameters. Plan files accordingly (e.g. `parse_texture.c`, `parse_color.c`, `parse_map.c`).
+- Document each task in `CODE.md` when it is merged.
 
 ## Phase 1 – Parsing the config
 | ID | Task | Driver | Done when |
 |---|---|---|---|
-| 1.1 | Argument check: exactly 1 argument, `.cub` extension, file can be opened | Abdullah | bad arguments give `Error\n` + a message |
-| 1.2 | Read the file into lines, keeping blank lines | Grace | lines are correct on sample maps |
-| 1.3 | Parse `NO SO WE EA`: any order, extra spaces, duplicates rejected, file must exist | Abdullah | all 4 paths stored |
+| 1.1 | Argument check: exactly 1 argument, `.cub` extension, file can be opened | Abdullah | bad arguments give `Error\n` + a message (tested by hand with 8 cases: no arg, 2 args, bad extension, `.cub`, missing file, directory, valid file) ✅ **DONE (Abdullah)** |
+| 1.2 | Read the file into lines (using GNL from 0.2), keeping blank lines; reject an empty file | Grace | lines are correct on sample maps |
+| 1.3 | Parse `NO SO WE EA`: any order, extra spaces, duplicates rejected, unknown identifiers rejected, file must exist and end in `.xpm` | Abdullah | all 4 paths stored |
 | 1.4 | Parse `F` and `C`: `R,G,B` in 0-255, spaces tolerated, bad values rejected | Grace | colors stored as an int |
 | 1.5 | Find where the map starts; all 6 elements are required before it; the map is last | Abdullah | an element after the map is rejected |
-| 1.6 | Copy the map into a rectangular grid (short rows padded with spaces) | Grace | grid matches the file |
+| 1.6 | Copy the map into a rectangular grid (short rows padded with spaces); reject empty lines inside the map and any character other than `01NSEW` and space | Grace | grid matches the file |
 
 ## Phase 2 – Map validation
 | ID | Task | Driver | Done when |
@@ -62,7 +78,7 @@
 |---|---|---|---|
 | 7.1 | Connect parser to game (replace the hard-coded map) | Grace | our test maps run |
 | 7.2 | Bad-input test run: empty file, no player, open map, bad colors, missing texture, huge map, directory as argument | Abdullah | never crashes, always `Error\n` + message |
-| 7.3 | Full leak check, norminette on all files, `make re` clean, Makefile does not relink | Grace | zero leaks, zero norm errors |
+| 7.3 | Full leak check, valgrind run on a school machine, norminette on all files, `make re` clean, Makefile does not relink | Grace | zero leaks, zero norm errors (ignoring `INVALID_HEADER`) |
 | 7.4 | Window behavior: minimize, switch windows, resize | Abdullah | stays smooth |
 
 ## Phase 8 – README and defense prep
@@ -75,6 +91,7 @@
 Candidates: wall collisions (partly done in 6.2), minimap, mouse look, doors, animated sprites. Bonus files must be `*_bonus.c/.h` and need a `bonus` Makefile rule.
 
 ## Order
+Phase 0 comes first. Then:
 ```
 2 (validation) ─────────────┐
 3 ─ 4 ─ 5 ─ 6 (rendering) ──┴─ 7 ─ 8 ─ 9

@@ -1,0 +1,10 @@
+obj/
+cub3D
+*.o
+*.a
+libft/libft.a
+minilibx-linux/obj/
+minilibx-linux/Makefile.gen
+minilibx-linux/test/Makefile.gen
+minilibx-linux/test/mlx-test
+minilibx-linux/test/*.o
