@@ -8,6 +8,7 @@ This file explains every file we have so far (tasks 0.1 to 1.1) and why each `#i
 inc/cub3d.h                  the only header: includes, structs, prototypes
 src/main.c                   program entry point
 src/parsing/check_args.c     task 1.1: check the command line
+src/parsing/read_file.c      task 1.2: read the .cub file into lines
 src/utils/error.c            error message, init and free of the game struct
 src/utils/get_next_line.c    reads a file line by line
 src/utils/get_next_line_utils.c   helper used by get_next_line
@@ -39,7 +40,7 @@ The header is wrapped in `#ifndef CUB3D_H ... #endif` (an *include guard*). If t
 - `t_config`: what the `.cub` file says about looks. `tex[4]` holds the four texture paths (indexes `NO`, `SO`, `WE`, `EA`). `floor` and `ceiling` hold the colors as one int (`R << 16 | G << 8 | B`). Both start at `-1`, which means "not set yet". That is how we will detect a missing or duplicated `F`/`C` line.
 - `t_map`: `grid` is an array of strings (one per row), `width` and `height` are its size. The grid will be rectangular, short rows padded with spaces.
 - `t_player`: position `x`, `y`; direction `dir_x`, `dir_y`; camera plane `plane_x`, `plane_y` (used by the raycaster); `spawn` is the original character (`N/S/E/W`).
-- `t_game`: groups the three above. Later it will also hold the mlx pointers. We pass one `t_game *` around instead of many arguments.
+- `t_game`: groups the three above, plus `lines` (the raw lines of the `.cub` file, NULL-terminated) and `nb_lines`. Later it will also hold the mlx pointers. We pass one `t_game *` around instead of many arguments.
 
 ## `src/main.c`
 
@@ -68,11 +69,26 @@ Later phases will add parsing, the window and the game loop between `init_game` 
 
 On failure, `print_error` is called and its return value `1` is passed up.
 
+## `src/parsing/read_file.c` (task 1.2)
+
+`read_file(path, game)` loads the whole file into `game->lines`, one string per line, **without the trailing `\n`**. Blank lines are kept as empty strings `""`, so later tasks can tell where the map has a hole.
+
+It reads the file **twice** (we have no linked list, and `realloc` is not allowed):
+
+1. `count_lines` reads with `get_next_line` until it returns `NULL`, counting lines and freeing each one.
+2. `read_file` allocates `nb_lines + 1` pointers with `ft_calloc` (the last one stays `NULL`), then `fill_lines` opens the file again and stores each line, calling `strip_newline` first.
+
+Errors: a file that cannot be opened gives `cannot read the map file`; a file with zero lines gives `the map file is empty`; a failed `ft_calloc` gives `memory allocation failed`. A file holding only `"\n"` is **not** empty: it is one blank line, and the later parsing tasks will reject it because the elements are missing.
+
+`fill_lines` frees any leftover line and calls `get_next_line(-1)` at the end, so the static buffer inside GNL is always released. `free_game` frees `lines`, and because `ft_calloc` zeroed the array, it is safe even if filling stopped halfway (`nb_lines` is set before filling).
+
+In `main`, `read_file` runs right after `init_game`; on failure we call `free_game` and exit with 1.
+
 ## `src/utils/error.c`
 
 - `print_error(msg)`: writes `Error\n` then the message to **stderr** (fd 2), returns `1`. Returning 1 lets us write `return (print_error("..."))` in one line. The subject requires the first line to be exactly `Error`.
 - `init_game(game)`: `ft_bzero` sets every byte to 0 (pointers become `NULL`, numbers 0), then the two colors are set to `-1`.
-- `free_game(game)`: frees the 4 texture paths and every row of the grid, then the grid itself, and sets pointers to `NULL`. Freeing `NULL` is safe, so this function can be called at any moment, even on a half-filled struct. That is why it is the single cleanup for every error path.
+- `free_game(game)`: frees the raw `lines`, the 4 texture paths and every row of the grid, then the grid itself, and sets pointers to `NULL`. Freeing `NULL` is safe, so this function can be called at any moment, even on a half-filled struct. That is why it is the single cleanup for every error path.
 
 ## `src/utils/get_next_line.c` and `get_next_line_utils.c`
 

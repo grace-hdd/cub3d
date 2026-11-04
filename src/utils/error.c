@@ -26,6 +26,12 @@ void	free_game(t_game *game)
 		i++;
 	}
 	i = 0;
+	while (game->lines && i < game->nb_lines)
+		free(game->lines[i++]);
+	free(game->lines);
+	game->lines = NULL;
+	game->nb_lines = 0;
+	i = 0;
 	while (game->map.grid && i < game->map.height)
 		free(game->map.grid[i++]);
 	free(game->map.grid);

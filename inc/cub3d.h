@@ -49,6 +49,8 @@ typedef struct s_game
 	t_config	cfg;
 	t_map		map;
 	t_player	player;
+	char		**lines;
+	int			nb_lines;
 }				t_game;
 
 /* utils */
@@ -58,6 +60,7 @@ void	init_game(t_game *game);
 
 /* parsing */
 int		check_args(int argc, char **argv);
+int		read_file(char *path, t_game *game);
 
 /* get_next_line */
 char	*get_next_line(int fd);
