@@ -1,10 +1,5 @@
 #include "cub3d.h"
 
-static int	is_space(char c)
-{
-	return (c == ' ' || c == '\t');
-}
-
 static int	get_index(char *line)
 {
 	if (!ft_strncmp(line, "NO", 2))
