@@ -25,14 +25,14 @@ Notes for the next phases (from what 0.1-1.1 taught us):
 - Blank lines come back from GNL as `"\n"`, so the parser can see them (needed to reject empty lines inside the map).
 - Each new parsing task should come with its own test script and maps in `tests/` (the old `run_args.sh` was deleted; recreate a single `tests/run_parsing.sh` that covers 1.x and 2.x).
 - Norm limits: max 25 lines per function, max 5 functions per file, max 4 parameters. Plan files accordingly (e.g. `parse_texture.c`, `parse_color.c`, `parse_map.c`).
-- Document each task in `CODE.md` when it is merged.
+- Document each task in its own file in `explain/` (`<id>-<name>.md`) when it is merged.
 
 ## Phase 1 – Parsing the config
 | ID | Task | Driver | Done when |
 |---|---|---|---|
 | 1.1 | Argument check: exactly 1 argument, `.cub` extension, file can be opened | Abdullah | bad arguments give `Error\n` + a message (tested by hand with 8 cases: no arg, 2 args, bad extension, `.cub`, missing file, directory, valid file) ✅ **DONE (Abdullah)** |
 | 1.2 | Read the file into lines (using GNL from 0.2), keeping blank lines; reject an empty file | Abdullah | lines are correct on sample maps (tested with ASan on sample, empty, no-trailing-newline and blank-only files) ✅ **DONE (Abdullah)** |
-| 1.3 | Parse `NO SO WE EA`: any order, extra spaces, duplicates rejected, unknown identifiers rejected, file must exist and end in `.xpm` | Abdullah | all 4 paths stored |
+| 1.3 | Parse `NO SO WE EA`: any order, extra spaces, duplicates rejected, unknown identifiers rejected, file must exist and end in `.xpm` | Abdullah | all 4 paths stored ✅ **DONE (Abdullah)** |
 | 1.4 | Parse `F` and `C`: `R,G,B` in 0-255, spaces tolerated, bad values rejected | Grace | colors stored as an int |
 | 1.5 | Find where the map starts; all 6 elements are required before it; the map is last | Abdullah | an element after the map is rejected |
 | 1.6 | Copy the map into a rectangular grid (short rows padded with spaces); reject empty lines inside the map and any character other than `01NSEW` and space | Grace | grid matches the file |

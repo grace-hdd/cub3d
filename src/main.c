@@ -9,6 +9,8 @@ int	main(int argc, char **argv)
 	init_game(&game);
 	if (read_file(argv[1], &game))
 		return (free_game(&game), 1);
+	if (parse_textures(&game))
+		return (free_game(&game), 1);
 	free_game(&game);
 	return (0);
 }

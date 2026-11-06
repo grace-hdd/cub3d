@@ -61,6 +61,8 @@ void	init_game(t_game *game);
 /* parsing */
 int		check_args(int argc, char **argv);
 int		read_file(char *path, t_game *game);
+int		parse_texture(char *line, t_game *game);
+int		parse_textures(t_game *game);
 
 /* get_next_line */
 char	*get_next_line(int fd);
