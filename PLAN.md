@@ -25,6 +25,8 @@ Notes for the next phases (from what 0.1-1.1 taught us):
 - Blank lines come back from GNL as `"\n"`, so the parser can see them (needed to reject empty lines inside the map).
 - Each new parsing task should come with its own test script and maps in `tests/` (the old `run_args.sh` was deleted; recreate a single `tests/run_parsing.sh` that covers 1.x and 2.x).
 - Norm limits: max 25 lines per function, max 5 functions per file, max 4 parameters. Plan files accordingly (e.g. `parse_texture.c`, `parse_color.c`, `parse_map.c`).
+- `parse_elements` (1.5) is the parsing entry point called by `main`; 1.6 and 2.x are added after it. Element lines after the map start are rejected there, but bad characters and empty lines inside the map are 1.6's job.
+- Color values take 1-3 digits only (`ft_atoi` has no overflow guard); `0000` is rejected on purpose.
 - Document each task in its own file in `explain/` (`<id>-<name>.md`) when it is merged.
 
 ## Phase 1 – Parsing the config
@@ -33,9 +35,10 @@ Notes for the next phases (from what 0.1-1.1 taught us):
 | 1.1 | Argument check: exactly 1 argument, `.cub` extension, file can be opened | Abdullah | bad arguments give `Error\n` + a message (tested by hand with 8 cases: no arg, 2 args, bad extension, `.cub`, missing file, directory, valid file) ✅ **DONE (Abdullah)** |
 | 1.2 | Read the file into lines (using GNL from 0.2), keeping blank lines; reject an empty file | Abdullah | lines are correct on sample maps (tested with ASan on sample, empty, no-trailing-newline and blank-only files) ✅ **DONE (Abdullah)** |
 | 1.3 | Parse `NO SO WE EA`: any order, extra spaces, duplicates rejected, unknown identifiers rejected, file must exist and end in `.xpm` | Abdullah | all 4 paths stored ✅ **DONE (Abdullah)** |
-| 1.4 | Parse `F` and `C`: `R,G,B` in 0-255, spaces tolerated, bad values rejected | Grace | colors stored as an int ✅ **DONE (Grace)** |
-| 1.5 | Find where the map starts; all 6 elements are required before it; the map is last | Abdullah | an element after the map is rejected |
-| 1.6 | Copy the map into a rectangular grid (short rows padded with spaces); reject empty lines inside the map and any character other than `01NSEW` and space | Grace | grid matches the file |
+| 1.4 | Parse `F` and `C`: `R,G,B` in 0-255, spaces tolerated, bad values rejected | Grace | colors stored as an int ✅ **DONE (Grace)**; Abdullah fixed the Makefile, the wiring and the digit overflow (see `explain/1.4-colors.md`) |
+| 1.5 | Find where the map starts; all 6 elements are required before it; the map is last | Abdullah | an element after the map is rejected ✅ **DONE (Abdullah)**; `parse_elements` replaces the temporary driver and saves `game->map_start` (see `explain/1.5-elements.md`) |
+| 1.6 | Copy the map into a rectangular grid (short rows padded with spaces); reject empty lines inside the map and any character other than `01NSEW` and space. Start at `game->map_start` (set by 1.5) and run to the last line | Grace | grid matches the file |
+| 1.7 | Cleanup of 1.4/1.5 review items: accept `\r` and `\v\f` in `is_space` (CRLF files); split `*str++ != ','` into a helper; replace the compound literal in `is_element_line` (norm); run `norminette src inc`; add `tests/run_parsing.sh` with maps for colors (valid, `256`, `-1`, `1,2`, `1,2,3,4`, `1,,3`, duplicate, bare `F`) and elements (missing, order, after the map, no map); commit style: one convention (`task N.N >...`) | Grace | norminette clean, script passes with ASan, no leaks |
 
 ## Phase 2 – Map validation
 | ID | Task | Driver | Done when |

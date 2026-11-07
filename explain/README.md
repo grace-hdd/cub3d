@@ -12,5 +12,7 @@ Add a new file here when a task is merged (name it `<id>-<name>.md`).
 | [1.1-check-args.md](1.1-check-args.md) | Argument check |
 | [1.2-read-file.md](1.2-read-file.md) | Read the file into lines |
 | [1.3-textures.md](1.3-textures.md) | Parse `NO SO WE EA` |
+| [1.4-colors.md](1.4-colors.md) | Parse `F` and `C` |
+| [1.5-elements.md](1.5-elements.md) | Find the map start, require all 6 elements |
 
 Note about norminette: the 42 header was removed from our files on purpose, so `norminette` reports `INVALID_HEADER`. Every other norm error is still checked.

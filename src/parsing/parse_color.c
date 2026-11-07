@@ -21,7 +21,7 @@ static int	parse_value(char **str, int *value)
 	start = 0;
 	while ((*str)[start] >= '0' && (*str)[start] <= '9')
 		start++;
-	if (start == 0)
+	if (start == 0 || start > 3)
 		return (1);
 	*value = ft_atoi(*str);
 	if (*value < 0 || *value > 255)

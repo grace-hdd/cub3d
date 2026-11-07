@@ -55,23 +55,3 @@ int	parse_texture(char *line, t_game *game)
 		return (print_error("a texture identifier takes only one path"));
 	return (check_path(game->cfg.tex[i]));
 }
-
-/* temporary driver: task 1.5 will replace it with the full element loop */
-int	parse_textures(t_game *game)
-{
-	int	i;
-	int	ret;
-
-	i = 0;
-	while (i < game->nb_lines)
-	{
-		ret = parse_texture(game->lines[i], game);
-		if (ret == 1)
-			return (1);
-		if (ret == -1 && game->lines[i][0] != '\0'
-			&& ft_strchr("FC01 \t", game->lines[i][0]) == NULL)
-			return (print_error("unknown identifier in the map file"));
-		i++;
-	}
-	return (0);
-}
