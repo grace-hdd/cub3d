@@ -32,14 +32,22 @@ static int	parse_value(char **str, int *value)
 	return (0);
 }
 
+static int	parse_comma(char **str)
+{
+	if (**str != ',')
+		return (1);
+	(*str)++;
+	return (0);
+}
+
 static int	parse_rgb(char *str, int *color)
 {
 	int	r;
 	int	g;
 	int	b;
 
-	if (parse_value(&str, &r) || *str++ != ','
-		|| parse_value(&str, &g) || *str++ != ','
+	if (parse_value(&str, &r) || parse_comma(&str)
+		|| parse_value(&str, &g) || parse_comma(&str)
 		|| parse_value(&str, &b))
 		return (1);
 	while (is_space(*str))

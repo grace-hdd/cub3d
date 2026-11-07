@@ -1,14 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_elements.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: grhaddad <grhaddad@student.42beirut.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/11/07 23:46:47 by grhaddad          #+#    #+#             */
+/*   Updated: 2026/11/07 23:52:48 by grhaddad         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
-
-static int	is_blank(char *line)
-{
-	int	i;
-
-	i = 0;
-	while (is_space(line[i]))
-		i++;
-	return (line[i] == '\0');
-}
 
 static int	all_elements(t_game *game)
 {
@@ -29,22 +31,6 @@ static int	parse_element(char *line, t_game *game)
 	if (ret == -1)
 		ret = parse_color(line, game);
 	return (ret);
-}
-
-static int	is_element_line(char *line)
-{
-	int	i;
-
-	i = 0;
-	while (i < NB_TEX)
-	{
-		if (!ft_strncmp(line, (char *[]){"NO", "SO", "WE", "EA"}[i], 2)
-			&& (!line[2] || is_space(line[2])))
-			return (1);
-		i++;
-	}
-	return ((line[0] == 'F' || line[0] == 'C')
-		&& (!line[1] || is_space(line[1])));
 }
 
 /* a line after the map start must not be an element */

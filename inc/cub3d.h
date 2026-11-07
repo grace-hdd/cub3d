@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: grhaddad <grhaddad@student.42beirut.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/11/07 23:50:50 by grhaddad          #+#    #+#             */
+/*   Updated: 2026/11/07 23:53:11 by grhaddad         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -65,7 +77,10 @@ int		read_file(char *path, t_game *game);
 int		parse_texture(char *line, t_game *game);
 int		parse_elements(t_game *game);
 int		parse_color(char *line, t_game *game);
+int		parse_map(t_game *game);
 int		is_space(char c);
+int		is_blank(char *line);
+int		is_element_line(char *line);
 
 /* get_next_line */
 char	*get_next_line(int fd);
