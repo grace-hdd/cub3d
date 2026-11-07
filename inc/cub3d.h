@@ -78,6 +78,7 @@ int		parse_texture(char *line, t_game *game);
 int		parse_elements(t_game *game);
 int		parse_color(char *line, t_game *game);
 int		parse_map(t_game *game);
+int		parse_player(t_game *game);
 int		is_space(char c);
 int		is_blank(char *line);
 int		is_element_line(char *line);

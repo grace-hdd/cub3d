@@ -16,5 +16,6 @@ Add a new file here when a task is merged (name it `<id>-<name>.md`).
 | [1.5-elements.md](1.5-elements.md) | Find the map start, require all 6 elements |
 | [1.6-map.md](1.6-map.md) | Copy and validate the map grid |
 | [1.7-cleanup.md](1.7-cleanup.md) | Parser review fixes and regression tests |
+| [2.1-player.md](2.1-player.md) | Find and validate the player spawn |
 
 Note about norminette: the 42 header was removed from our files on purpose, so `norminette` reports `INVALID_HEADER`. Every other norm error is still checked.
