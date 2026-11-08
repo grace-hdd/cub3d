@@ -83,6 +83,9 @@ int		is_space(char c);
 int		is_blank(char *line);
 int		is_element_line(char *line);
 
+/* render */
+void	init_player_view(t_game *game);
+
 /* get_next_line */
 char	*get_next_line(int fd);
 char	*ft_strjoin_gnl(char *s1, char const *s2);

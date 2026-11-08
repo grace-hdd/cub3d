@@ -27,6 +27,7 @@ int	main(int argc, char **argv)
 		return (free_game(&game), 1);
 	if (parse_player(&game))
 		return (free_game(&game), 1);
+	init_player_view(&game);
 	free_game(&game);
 	return (0);
 }
