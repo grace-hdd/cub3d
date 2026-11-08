@@ -57,7 +57,7 @@ Notes for the next phases (from what 0.1-1.1 taught us):
 ## Phase 4 – Raycasting core
 | ID | Task | Driver | Done when |
 |---|---|---|---|
-| 4.1 | Set player position, direction and camera plane from the spawn character | Grace | correct starting direction for N/S/E/W |
+| 4.1 | Set player position, direction and camera plane from the spawn character | Grace | correct starting direction for N/S/E/W ✅ **DONE (Grace)** |
 | 4.2 | DDA: one ray per screen column; find the hit cell, which side was hit, and the perpendicular distance | Abdullah | distances verified by printing them on a hard-coded map |
 | 4.3 | Wall height from distance; draw flat-colored vertical lines | Grace | 3D corridor visible, no fisheye |
 
