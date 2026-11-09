@@ -22,7 +22,7 @@ HEADERS = inc/cub3d.h
 SRCS = main.c \
 	parsing/check_args.c parsing/read_file.c parsing/parse_texture.c \
 	parsing/parse_color.c parsing/parse_elements.c parsing/parse_utils.c \
-	parsing/parse_map.c parsing/parse_player.c parsing/parse_element_checks.c \
+	parsing/parse_map.c parsing/parse_map_utils.c parsing/parse_player.c parsing/parse_element_checks.c \
 	parsing/check_map.c \
 	render/player_view.c render/window.c \
 	utils/error.c utils/get_next_line.c utils/get_next_line_utils.c

@@ -96,6 +96,10 @@ int		parse_player(t_game *game);
 int		check_map_closed(t_game *game);
 int		is_space(char c);
 int		is_blank(char *line);
+int		valid_line(char *line);
+int		map_end(t_game *game);
+int		map_width(t_game *game, int end);
+void	copy_row(t_game *game, int row, int width);
 int		is_element_line(char *line);
 
 /* render */

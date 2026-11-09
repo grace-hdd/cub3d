@@ -12,78 +12,10 @@
 
 #include "cub3d.h"
 
-static int	valid_char(char c)
-{
-	return (c == '0' || c == '1' || c == 'N'
-		|| c == 'S' || c == 'E' || c == 'W' || c == ' ');
-}
-
-static int	valid_line(char *line)
+static int	check_map_lines(t_game *game, int end)
 {
 	int	i;
 
-	if (is_blank(line))
-		return (0);
-	i = 0;
-	while (line[i])
-	{
-		if (!valid_char(line[i]))
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
-static int	map_end(t_game *game)
-{
-	int	end;
-
-	end = game->nb_lines;
-	while (end > game->map_start + 1 && is_blank(game->lines[end - 1]))
-		end--;
-	return (end);
-}
-
-static int	map_width(t_game *game, int end)
-{
-	int	i;
-	int	width;
-	int	len;
-
-	width = 0;
-	i = game->map_start;
-	while (i < end)
-	{
-		len = ft_strlen(game->lines[i]);
-		if (len > width)
-			width = len;
-		i++;
-	}
-	return (width);
-}
-
-static void	copy_row(t_game *game, int row, int width)
-{
-	int	i;
-
-	i = 0;
-	while (i < width)
-	{
-		if (game->lines[game->map_start + row][i])
-			game->map.grid[row][i] = game->lines[game->map_start + row][i];
-		else
-			game->map.grid[row][i] = ' ';
-		i++;
-	}
-	game->map.grid[row][i] = '\0';
-}
-
-int	parse_map(t_game *game)
-{
-	int	i;
-	int	end;
-
-	end = map_end(game);
 	i = game->map_start;
 	while (i < end)
 	{
@@ -91,8 +23,13 @@ int	parse_map(t_game *game)
 			return (print_error("invalid character or empty line in map"));
 		i++;
 	}
-	game->map.height = end - game->map_start;
-	game->map.width = map_width(game, end);
+	return (0);
+}
+
+static int	build_grid(t_game *game)
+{
+	int	i;
+
 	game->map.grid = ft_calloc(game->map.height, sizeof(char *));
 	if (!game->map.grid)
 		return (print_error("memory allocation failed"));
@@ -106,4 +43,16 @@ int	parse_map(t_game *game)
 		i++;
 	}
 	return (0);
+}
+
+int	parse_map(t_game *game)
+{
+	int	end;
+
+	end = map_end(game);
+	if (check_map_lines(game, end))
+		return (1);
+	game->map.height = end - game->map_start;
+	game->map.width = map_width(game, end);
+	return (build_grid(game));
 }

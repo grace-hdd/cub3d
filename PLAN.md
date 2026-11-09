@@ -7,9 +7,33 @@
 ## Working rules
 - **Pair on everything.** Each task has a driver (writes and commits) and a navigator (reads, questions, tests). The driver alternates as listed below.
 - **One git branch per task:** `task/<id>-<name>` (e.g. `task/2.1-player`). Merge into `main` only when the task's "Done when" is met.
-- **Before every merge:** `norminette src inc` shows no errors (except `INVALID_HEADER`: we chose not to use the 42 header in our files), `make` builds with `-Wall -Wextra -Werror`, no leaks.
+- **Before every merge:** `norminette src inc` shows no errors (except `INVALID_HEADER` on files without the 42 header; Grace's files have it, Abdullah's do not: decide one rule), `make` builds with `-Wall -Wextra -Werror`, no leaks.
 - **Understand before you merge.** If code was written with help (a teammate, a peer, or an AI tool), both of us must be able to explain every line. This is a graded rule.
-- **Leaks:** valgrind does not start on Abdullah's machine (glibc too new), so our test scripts (`tests/`, to be written) compile with AddressSanitizer (`-fsanitize=address`). Do a final valgrind run on a school machine.
+- **Leaks:** valgrind does not start on Abdullah's machine (glibc too new), so our test scripts (`tests/run_parsing.sh`, `tests/test_pixel.c`) compile with AddressSanitizer (`-fsanitize=address`). Do a final valgrind run on a school machine.
+
+## Progress (who finished what)
+Updated from `git log`. "Planned" is the driver in the phase tables; the last column is who actually did it.
+| Task | Planned | Done by | Notes |
+|---|---|---|---|
+| 0.1-0.4 | Abdullah | Abdullah | |
+| 1.1-1.3 | Abdullah | Abdullah | |
+| 1.4 colors | Grace | Grace | Abdullah fixed the Makefile, the wiring and the digit overflow |
+| 1.5 elements | Abdullah | Abdullah | |
+| 1.6 map grid | Grace | Grace | Abdullah removed an unused variable (build), ignored trailing blank lines |
+| 1.7 cleanup | Grace | Grace | Abdullah: `\r` strip in `read_file.c`, `parse_map.c` split for the norm |
+| 2.1 player | Grace | Grace | |
+| 2.2 closed map | Abdullah | Abdullah | |
+| 2.3 tests | Grace | **Abdullah** | reassigned: Abdullah wrote the maps and `tests/run_parsing.sh` |
+| 3.1 window | Abdullah | Abdullah | |
+| 4.1 player view | Grace | Grace | done early, before Phase 3 |
+
+Count: 16 of 33 tasks done (Abdullah 11, Grace 5). Left: Abdullah 8 (3.3, 4.2, 5.1, 5.3, 6.2, 6.4, 7.2, 7.4), Grace 8 (3.2, 4.3, 5.2, 6.1, 6.3, 7.1, 7.3, 8.1), both 1 (8.2). Next: 3.2 (Grace) and 3.3 (Abdullah).
+
+## Open issues
+- ~~norminette~~ fixed: `parse_map.c` split into `parse_map.c` + `parse_map_utils.c`, `player_view.c` header realigned, CRLF line endings removed from 3 files. `norminette src inc` now reports only `INVALID_HEADER` (on files without the 42 header).
+- Header rule is inconsistent (see Working rules).
+- Final valgrind run on a school machine (valgrind does not start here).
+- `tests/maps/{empty,sample,valid_min}.cub` are old stubs and unused: delete or reuse.
 
 ## Phase 0 – Project setup (added after review)
 The repo had gaps that block every later phase: `cub3d.h` sat in the root while the Makefile and norminette use `inc/`, `main.c` was empty, libft had no `get_next_line`, and MLX does not compile with a new gcc (C23 default).
@@ -38,14 +62,14 @@ Notes for the next phases (from what 0.1-1.1 taught us):
 | 1.4 | Parse `F` and `C`: `R,G,B` in 0-255, spaces tolerated, bad values rejected | Grace | colors stored as an int ✅ **DONE (Grace)**; Abdullah fixed the Makefile, the wiring and the digit overflow (see `explain/1.4-colors.md`) |
 | 1.5 | Find where the map starts; all 6 elements are required before it; the map is last | Abdullah | an element after the map is rejected ✅ **DONE (Abdullah)**; `parse_elements` replaces the temporary driver and saves `game->map_start` (see `explain/1.5-elements.md`) |
 | 1.6 | Copy the map into a rectangular grid (short rows padded with spaces); reject empty lines inside the map and any character other than `01NSEW` and space. Start at `game->map_start` (set by 1.5) and run to the last line | Grace | grid matches the file ✅ **DONE (Grace)** |
-| 1.7 | Cleanup of 1.4/1.5 review items: accept `\r` and `\v\f` in `is_space` (CRLF files); split `*str++ != ','` into a helper; replace the compound literal in `is_element_line` (norm); run `norminette src inc`; add `tests/run_parsing.sh` with maps for colors (valid, `256`, `-1`, `1,2`, `1,2,3,4`, `1,,3`, duplicate, bare `F`) and elements (missing, order, after the map, no map); commit style: one convention (`task N.N >...`) | Grace | norminette clean, script passes with ASan, no leaks ✅ **DONE (Grace)** |
+| 1.7 | Cleanup of 1.4/1.5 review items: accept `\r` and `\v\f` in `is_space` (CRLF files); split `*str++ != ','` into a helper; replace the compound literal in `is_element_line` (norm); run `norminette src inc`; add `tests/run_parsing.sh` with maps for colors (valid, `256`, `-1`, `1,2`, `1,2,3,4`, `1,,3`, duplicate, bare `F`) and elements (missing, order, after the map, no map); commit style: one convention (`task N.N >...`) | Grace | norminette clean, script passes with ASan, no leaks ✅ **DONE (Grace)**; Abdullah added the `\r` strip in `read_file.c` and `tests/run_parsing.sh` came with 2.3. norminette items fixed by Abdullah (see Open issues) |
 
 ## Phase 2 – Map validation
 | ID | Task | Driver | Done when |
 |---|---|---|---|
 | 2.1 | Find the player: exactly one `N/S/E/W`; store its x, y and direction in a `t_player` in the game struct | Grace | 0 or 2+ players rejected, position and direction correct ✅ **DONE (Grace)** |
 | 2.2 | Check the map is closed: every `0` and the player cell must have 4 neighbors (up/down/left/right) that exist and are not a space | Abdullah | open maps rejected, maps containing spaces inside walls accepted ✅ **DONE (Abdullah)** (see `explain/2.2-closed-map.md`) |
-| 2.3 | Add test maps for 2.1 and 2.2 to `tests/maps/` (no player, two players, hole in the wall, `0` next to a space, `0` on the border, spaces around the map) | Grace | all pass, no leaks ✅ **DONE** (`tests/run_parsing.sh`, 20 maps; see `explain/2.3-parsing-tests.md`) |
+| 2.3 | Add test maps for 2.1 and 2.2 to `tests/maps/` (no player, two players, hole in the wall, `0` next to a space, `0` on the border, spaces around the map) | Abdullah | all pass, no leaks ✅ **DONE (Abdullah)** (planned for Grace; done by Abdullah) (`tests/run_parsing.sh`, 20 maps; see `explain/2.3-parsing-tests.md`) |
 
 ## Phase 3 – Window and image
 | ID | Task | Driver | Done when |
