@@ -44,7 +44,7 @@ Notes for the next phases (from what 0.1-1.1 taught us):
 | ID | Task | Driver | Done when |
 |---|---|---|---|
 | 2.1 | Find the player: exactly one `N/S/E/W`; store its x, y and direction in a `t_player` in the game struct | Grace | 0 or 2+ players rejected, position and direction correct ✅ **DONE (Grace)** |
-| 2.2 | Check the map is closed: every `0` and the player cell must have 4 neighbors (up/down/left/right) that exist and are not a space | Abdullah | open maps rejected, maps containing spaces inside walls accepted |
+| 2.2 | Check the map is closed: every `0` and the player cell must have 4 neighbors (up/down/left/right) that exist and are not a space | Abdullah | open maps rejected, maps containing spaces inside walls accepted ✅ **DONE (Abdullah)** (see `explain/2.2-closed-map.md`) |
 | 2.3 | Add test maps for 2.1 and 2.2 to `tests/maps/` (no player, two players, hole in the wall, `0` next to a space, `0` on the border, spaces around the map) | Grace | all pass, no leaks |
 
 ## Phase 3 – Window and image

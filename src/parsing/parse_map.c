@@ -22,7 +22,7 @@ static int	valid_line(char *line)
 {
 	int	i;
 
-	if (line[0] == '\0')
+	if (is_blank(line))
 		return (0);
 	i = 0;
 	while (line[i])
@@ -34,7 +34,17 @@ static int	valid_line(char *line)
 	return (1);
 }
 
-static int	map_width(t_game *game)
+static int	map_end(t_game *game)
+{
+	int	end;
+
+	end = game->nb_lines;
+	while (end > game->map_start + 1 && is_blank(game->lines[end - 1]))
+		end--;
+	return (end);
+}
+
+static int	map_width(t_game *game, int end)
 {
 	int	i;
 	int	width;
@@ -42,7 +52,7 @@ static int	map_width(t_game *game)
 
 	width = 0;
 	i = game->map_start;
-	while (i < game->nb_lines)
+	while (i < end)
 	{
 		len = ft_strlen(game->lines[i]);
 		if (len > width)
@@ -71,17 +81,18 @@ static void	copy_row(t_game *game, int row, int width)
 int	parse_map(t_game *game)
 {
 	int	i;
-	int	width;
+	int	end;
 
+	end = map_end(game);
 	i = game->map_start;
-	while (i < game->nb_lines)
+	while (i < end)
 	{
 		if (!valid_line(game->lines[i]))
 			return (print_error("invalid character or empty line in map"));
 		i++;
 	}
-	game->map.height = game->nb_lines - game->map_start;
-	game->map.width = map_width(game);
+	game->map.height = end - game->map_start;
+	game->map.width = map_width(game, end);
 	game->map.grid = ft_calloc(game->map.height, sizeof(char *));
 	if (!game->map.grid)
 		return (print_error("memory allocation failed"));
