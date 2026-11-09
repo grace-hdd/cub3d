@@ -15,9 +15,10 @@ Add a new file here when a task is merged (name it `<id>-<name>.md`).
 | [1.4-colors.md](1.4-colors.md) | Parse `F` and `C` |
 | [1.5-elements.md](1.5-elements.md) | Find the map start, require all 6 elements |
 | [1.6-map.md](1.6-map.md) | Copy and validate the map grid |
-| [1.7-cleanup.md](1.7-cleanup.md) | Parser review fixes and regression tests |
+| [1.7-cleanup.md](1.7-cleanup.md) | Parser review fixes |
 | [2.1-player.md](2.1-player.md) | Find and validate the player spawn |
 | [2.2-closed-map.md](2.2-closed-map.md) | Check the map is closed |
+| [2.3-parsing-tests.md](2.3-parsing-tests.md) | Test maps and `tests/run_parsing.sh` |
 | [4.1-player-view.md](4.1-player-view.md) | Set the player position, direction and camera plane |
 
-Note about norminette: the 42 header was removed from our files on purpose, so `norminette` reports `INVALID_HEADER`. Every other norm error is still checked.
+Note about norminette: Grace's files carry the 42 header; Abdullah's older files (tasks 0.x-1.5, `check_map.c`) do not, so `norminette` may report `INVALID_HEADER` on those. Every other norm error is still checked.
