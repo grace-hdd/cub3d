@@ -1,5 +1,6 @@
 #!/bin/bash
-# Parsing tests: builds the parser with AddressSanitizer and runs every map.
+# Parsing tests: builds the parser (tests/parse_main.c, no window, no display
+# needed) with AddressSanitizer and runs every map.
 #   tests/maps/valid/*.cub    must exit 0 and print nothing
 #   tests/maps/invalid/*.cub  must exit 1, print "Error" first, no sanitizer report
 # Run from anywhere: tests/run_parsing.sh
@@ -11,7 +12,7 @@ trap 'rm -rf "$(dirname "$BIN")"' EXIT
 make -s -C libft >/dev/null || exit 1
 make -s -C minilibx-linux >/dev/null 2>&1
 cc -g -fsanitize=address,undefined -Iinc -Ilibft -Iminilibx-linux \
-	src/main.c src/parsing/*.c src/render/*.c src/utils/*.c \
+	tests/parse_main.c src/parsing/*.c src/render/*.c src/utils/*.c \
 	libft/libft.a minilibx-linux/libmlx.a -lXext -lX11 -lm -o "$BIN" || exit 1
 
 pass=0

@@ -50,7 +50,7 @@ Notes for the next phases (from what 0.1-1.1 taught us):
 ## Phase 3 – Window and image
 | ID | Task | Driver | Done when |
 |---|---|---|---|
-| 3.1 | mlx init, window, image buffer, `put_pixel` | Abdullah | a pixel can be drawn at any x,y |
+| 3.1 | mlx init, window, image buffer, `put_pixel` | Abdullah | a pixel can be drawn at any x,y ✅ **DONE (Abdullah)** (see `explain/3.1-window.md`) |
 | 3.2 | Draw floor and ceiling from the config colors | Grace | window shows the two colors |
 | 3.3 | Clean exit: ESC and the red cross; destroy image, window and display; free everything | Abdullah | no leaks, no crash |
 

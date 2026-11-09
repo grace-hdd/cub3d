@@ -30,6 +30,8 @@ int	main(int argc, char **argv)
 	if (check_map_closed(&game))
 		return (free_game(&game), 1);
 	init_player_view(&game);
+	if (init_window(&game))
+		return (free_game(&game), 1);
 	free_game(&game);
 	return (0);
 }

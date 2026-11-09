@@ -30,6 +30,7 @@ void	free_game(t_game *game)
 {
 	int	i;
 
+	destroy_window(game);
 	i = 0;
 	while (i < NB_TEX)
 	{

@@ -19,6 +19,7 @@ Add a new file here when a task is merged (name it `<id>-<name>.md`).
 | [2.1-player.md](2.1-player.md) | Find and validate the player spawn |
 | [2.2-closed-map.md](2.2-closed-map.md) | Check the map is closed |
 | [2.3-parsing-tests.md](2.3-parsing-tests.md) | Test maps and `tests/run_parsing.sh` |
+| [3.1-window.md](3.1-window.md) | Window, image buffer, `put_pixel` |
 | [4.1-player-view.md](4.1-player-view.md) | Set the player position, direction and camera plane |
 
 Note about norminette: Grace's files carry the 42 header; Abdullah's older files (tasks 0.x-1.5, `check_map.c`) do not, so `norminette` may report `INVALID_HEADER` on those. Every other norm error is still checked.

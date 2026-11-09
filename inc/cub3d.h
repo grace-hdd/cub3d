@@ -25,6 +25,8 @@
 #  define BUFFER_SIZE 42
 # endif
 
+# define WIN_W 1280
+# define WIN_H 720
 # define NB_TEX 4
 # define NO 0
 # define SO 1
@@ -56,8 +58,20 @@ typedef struct s_player
 	char	spawn;
 }			t_player;
 
+typedef struct s_img
+{
+	void	*ptr;
+	char	*addr;
+	int		bpp;
+	int		line_len;
+	int		endian;
+}			t_img;
+
 typedef struct s_game
 {
+	void		*mlx;
+	void		*win;
+	t_img		img;
 	t_config	cfg;
 	t_map		map;
 	t_player	player;
@@ -86,6 +100,9 @@ int		is_element_line(char *line);
 
 /* render */
 void	init_player_view(t_game *game);
+int		init_window(t_game *game);
+void	put_pixel(t_img *img, int x, int y, int color);
+void	destroy_window(t_game *game);
 
 /* get_next_line */
 char	*get_next_line(int fd);
