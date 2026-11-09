@@ -20,6 +20,7 @@ Add a new file here when a task is merged (name it `<id>-<name>.md`).
 | [2.2-closed-map.md](2.2-closed-map.md) | Check the map is closed | Abdullah |
 | [2.3-parsing-tests.md](2.3-parsing-tests.md) | Test maps and `tests/run_parsing.sh` | Abdullah |
 | [3.1-window.md](3.1-window.md) | Window, image buffer, `put_pixel` | Abdullah |
+| [3.3-clean-exit.md](3.3-clean-exit.md) | ESC and red cross, clean exit | Abdullah |
 | [4.1-player-view.md](4.1-player-view.md) | Set the player position, direction and camera plane | Grace |
 
 Note about norminette: Grace's files carry the 42 header; Abdullah's files (tasks 0.x-1.5, `check_map.c`, `window.c`) do not, so `norminette` reports `INVALID_HEADER` on those. Every other norm error is still checked. With that header exception, `norminette src inc` is clean. "Done by" matches the Progress table in `PLAN.md`.

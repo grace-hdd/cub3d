@@ -25,9 +25,10 @@ Updated from `git log`. "Planned" is the driver in the phase tables; the last co
 | 2.2 closed map | Abdullah | Abdullah | |
 | 2.3 tests | Grace | **Abdullah** | reassigned: Abdullah wrote the maps and `tests/run_parsing.sh` |
 | 3.1 window | Abdullah | Abdullah | |
+| 3.3 clean exit | Abdullah | Abdullah | done before 3.2 (Grace) |
 | 4.1 player view | Grace | Grace | done early, before Phase 3 |
 
-Count: 16 of 33 tasks done (Abdullah 11, Grace 5). Left: Abdullah 8 (3.3, 4.2, 5.1, 5.3, 6.2, 6.4, 7.2, 7.4), Grace 8 (3.2, 4.3, 5.2, 6.1, 6.3, 7.1, 7.3, 8.1), both 1 (8.2). Next: 3.2 (Grace) and 3.3 (Abdullah).
+Count: 17 of 33 tasks done (Abdullah 12, Grace 5). Left: Abdullah 7 (4.2, 5.1, 5.3, 6.2, 6.4, 7.2, 7.4), Grace 8 (3.2, 4.3, 5.2, 6.1, 6.3, 7.1, 7.3, 8.1), both 1 (8.2). Next: 3.2 (Grace) and 4.2 (Abdullah).
 
 ## Open issues
 - ~~norminette~~ fixed: `parse_map.c` split into `parse_map.c` + `parse_map_utils.c`, `player_view.c` header realigned, CRLF line endings removed from 3 files. `norminette src inc` now reports only `INVALID_HEADER` (on files without the 42 header).
@@ -76,7 +77,7 @@ Notes for the next phases (from what 0.1-1.1 taught us):
 |---|---|---|---|
 | 3.1 | mlx init, window, image buffer, `put_pixel` | Abdullah | a pixel can be drawn at any x,y ✅ **DONE (Abdullah)** (see `explain/3.1-window.md`) |
 | 3.2 | Draw floor and ceiling from the config colors | Grace | window shows the two colors |
-| 3.3 | Clean exit: ESC and the red cross; destroy image, window and display; free everything | Abdullah | no leaks, no crash |
+| 3.3 | Clean exit: ESC and the red cross; destroy image, window and display; free everything | Abdullah | no leaks, no crash ✅ **DONE (Abdullah)** (see `explain/3.3-clean-exit.md`) |
 
 ## Phase 4 – Raycasting core
 | ID | Task | Driver | Done when |

@@ -11,7 +11,7 @@ trap 'rm -rf "$(dirname "$BIN")"' EXIT
 
 make -s -C libft >/dev/null || exit 1
 make -s -C minilibx-linux >/dev/null 2>&1
-cc -g -fsanitize=address,undefined -Iinc -Ilibft -Iminilibx-linux \
+cc -g -std=gnu17 -fsanitize=address,undefined -Iinc -Ilibft -Iminilibx-linux \
 	tests/parse_main.c src/parsing/*.c src/render/*.c src/utils/*.c \
 	libft/libft.a minilibx-linux/libmlx.a -lXext -lX11 -lm -o "$BIN" || exit 1
 

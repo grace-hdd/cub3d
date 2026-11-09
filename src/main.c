@@ -32,6 +32,7 @@ int	main(int argc, char **argv)
 	init_player_view(&game);
 	if (init_window(&game))
 		return (free_game(&game), 1);
+	run_game(&game);
 	free_game(&game);
 	return (0);
 }

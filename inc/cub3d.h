@@ -27,6 +27,7 @@
 
 # define WIN_W 1280
 # define WIN_H 720
+# define KEY_ESC 65307
 # define NB_TEX 4
 # define NO 0
 # define SO 1
@@ -107,6 +108,9 @@ void	init_player_view(t_game *game);
 int		init_window(t_game *game);
 void	put_pixel(t_img *img, int x, int y, int color);
 void	destroy_window(t_game *game);
+int		close_game(t_game *game);
+int		key_press(int keycode, t_game *game);
+void	run_game(t_game *game);
 
 /* get_next_line */
 char	*get_next_line(int fd);
