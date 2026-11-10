@@ -20,6 +20,7 @@ Add a new file here when a task is merged (name it `<id>-<name>.md`).
 | [2.2-closed-map.md](2.2-closed-map.md) | Check the map is closed | Abdullah |
 | [2.3-parsing-tests.md](2.3-parsing-tests.md) | Test maps and `tests/run_parsing.sh` | Abdullah |
 | [3.1-window.md](3.1-window.md) | Window, image buffer, `put_pixel` | Abdullah |
+| [3.2-background.md](3.2-background.md) | Draw floor and ceiling | Abdullah |
 | [3.3-clean-exit.md](3.3-clean-exit.md) | ESC and red cross, clean exit | Abdullah |
 | [4.1-player-view.md](4.1-player-view.md) | Set the player position, direction and camera plane | Grace |
 

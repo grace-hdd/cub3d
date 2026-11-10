@@ -111,6 +111,7 @@ void	destroy_window(t_game *game);
 int		close_game(t_game *game);
 int		key_press(int keycode, t_game *game);
 void	run_game(t_game *game);
+void	draw_background(t_game *game);
 
 /* get_next_line */
 char	*get_next_line(int fd);
