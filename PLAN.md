@@ -30,7 +30,7 @@ Updated from `git log`. "Planned" is the driver in the phase tables; the last co
 | 4.1 player view | Grace | Grace | done early, before Phase 3 |
 | 4.2 DDA | Abdullah | Abdullah | |
 
-Count: 19 of 33 tasks done (Abdullah 14, Grace 5). Left: Abdullah 6 (5.1, 5.3, 6.2, 6.4, 7.2, 7.4), Grace 7 (4.3, 5.2, 6.1, 6.3, 7.1, 7.3, 8.1), both 1 (8.2). Next: 4.3 (Grace, needs 4.2's `cast_ray`) and 5.1 (Abdullah).
+Count: 20 of 33 tasks done (Abdullah 14, Grace 6). Left: Abdullah 6 (5.1, 5.3, 6.2, 6.4, 7.2, 7.4), Grace 6 (5.2, 6.1, 6.3, 7.1, 7.3, 8.1), both 1 (8.2). Next: 5.1 (Abdullah).
 
 ## Open issues
 - ~~norminette~~ fixed: `parse_map.c` split into `parse_map.c` + `parse_map_utils.c`, `player_view.c` header realigned, CRLF line endings removed from 3 files. `norminette src inc` now reports only `INVALID_HEADER` (on files without the 42 header).
@@ -86,7 +86,7 @@ Notes for the next phases (from what 0.1-1.1 taught us):
 |---|---|---|---|
 | 4.1 | Set player position, direction and camera plane from the spawn character | Grace | correct starting direction for N/S/E/W ✅ **DONE (Grace)** |
 | 4.2 | DDA: one ray per screen column; find the hit cell, which side was hit, and the perpendicular distance | Abdullah | distances verified by printing them on a hard-coded map ✅ **DONE (Abdullah)** (`tests/test_dda.c`, see `explain/4.2-dda.md`) |
-| 4.3 | Wall height from distance; draw flat-colored vertical lines | Grace | 3D corridor visible, no fisheye |
+| 4.3 | Wall height from distance; draw flat-colored vertical lines | Grace | 3D corridor visible, no fisheye ✅ **DONE (Grace)** (see `explain/4.3-wall-rendering.md`) |
 
 ## Phase 5 – Textures
 | ID | Task | Driver | Done when |

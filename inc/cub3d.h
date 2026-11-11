@@ -128,6 +128,7 @@ int		close_game(t_game *game);
 int		key_press(int keycode, t_game *game);
 void	run_game(t_game *game);
 void	draw_background(t_game *game);
+void	draw_walls(t_game *game);
 void	cast_ray(t_game *game, int x, t_ray *ray);
 
 /* get_next_line */
