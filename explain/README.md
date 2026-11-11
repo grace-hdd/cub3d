@@ -23,5 +23,6 @@ Add a new file here when a task is merged (name it `<id>-<name>.md`).
 | [3.2-background.md](3.2-background.md) | Draw floor and ceiling | Abdullah |
 | [3.3-clean-exit.md](3.3-clean-exit.md) | ESC and red cross, clean exit | Abdullah |
 | [4.1-player-view.md](4.1-player-view.md) | Set the player position, direction and camera plane | Grace |
+| [4.2-dda.md](4.2-dda.md) | DDA: hit cell, side and perpendicular distance | Abdullah |
 
 Note about norminette: Grace's files carry the 42 header; Abdullah's files (tasks 0.x-1.5, `check_map.c`, `window.c`) do not, so `norminette` reports `INVALID_HEADER` on those. Every other norm error is still checked. With that header exception, `norminette src inc` is clean. "Done by" matches the Progress table in `PLAN.md`.

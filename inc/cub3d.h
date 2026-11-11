@@ -68,6 +68,22 @@ typedef struct s_img
 	int		endian;
 }			t_img;
 
+typedef struct s_ray
+{
+	double	dir_x;
+	double	dir_y;
+	int		map_x;
+	int		map_y;
+	double	delta_x;
+	double	delta_y;
+	double	side_x;
+	double	side_y;
+	int		step_x;
+	int		step_y;
+	int		side;
+	double	perp_dist;
+}			t_ray;
+
 typedef struct s_game
 {
 	void		*mlx;
@@ -112,6 +128,7 @@ int		close_game(t_game *game);
 int		key_press(int keycode, t_game *game);
 void	run_game(t_game *game);
 void	draw_background(t_game *game);
+void	cast_ray(t_game *game, int x, t_ray *ray);
 
 /* get_next_line */
 char	*get_next_line(int fd);
