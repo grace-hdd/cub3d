@@ -30,7 +30,7 @@ Updated from `git log`. "Planned" is the driver in the phase tables; the last co
 | 4.1 player view | Grace | Grace | done early, before Phase 3 |
 | 4.2 DDA | Abdullah | Abdullah | |
 
-Count: 20 of 33 tasks done (Abdullah 14, Grace 6). Left: Abdullah 6 (5.1, 5.3, 6.2, 6.4, 7.2, 7.4), Grace 6 (5.2, 6.1, 6.3, 7.1, 7.3, 8.1), both 1 (8.2). Next: 5.1 (Abdullah).
+Count: 21 of 33 tasks done (Abdullah 14, Grace 7). Left: Abdullah 6 (5.1, 5.3, 6.2, 6.4, 7.2, 7.4), Grace 5 (5.2, 6.3, 7.1, 7.3, 8.1), both 1 (8.2). Next: 5.1 (Abdullah).
 
 ## Open issues
 - ~~norminette~~ fixed: `parse_map.c` split into `parse_map.c` + `parse_map_utils.c`, `player_view.c` header realigned, CRLF line endings removed from 3 files. `norminette src inc` now reports only `INVALID_HEADER` (on files without the 42 header).
@@ -98,7 +98,7 @@ Notes for the next phases (from what 0.1-1.1 taught us):
 ## Phase 6 – Controls
 | ID | Task | Driver | Done when |
 |---|---|---|---|
-| 6.1 | Key press/release state (`mlx_hook` 2 and 3) and a per-frame loop hook | Grace | holding keys is smooth |
+| 6.1 | Key press/release state (`mlx_hook` 2 and 3) and a per-frame loop hook | Grace | holding keys is smooth ✅ **DONE (Grace)** |
 | 6.2 | W/A/S/D movement with a wall check | Abdullah | cannot walk through walls |
 | 6.3 | Left/right arrows rotate the view | Grace | smooth rotation, correct direction |
 | 6.4 | Frame timing with `gettimeofday` so speed does not depend on the machine | Abdullah | same feel at any frame rate |

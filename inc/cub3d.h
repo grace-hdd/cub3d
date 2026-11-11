@@ -28,6 +28,12 @@
 # define WIN_W 1280
 # define WIN_H 720
 # define KEY_ESC 65307
+# define KEY_W 119
+# define KEY_A 97
+# define KEY_S 115
+# define KEY_D 100
+# define KEY_LEFT 65361
+# define KEY_RIGHT 65363
 # define NB_TEX 4
 # define NO 0
 # define SO 1
@@ -84,6 +90,16 @@ typedef struct s_ray
 	double	perp_dist;
 }			t_ray;
 
+typedef struct s_input
+{
+	int	w;
+	int	a;
+	int	s;
+	int	d;
+	int	left;
+	int	right;
+}			t_input;
+
 typedef struct s_game
 {
 	void		*mlx;
@@ -95,6 +111,7 @@ typedef struct s_game
 	char		**lines;
 	int			nb_lines;
 	int			map_start;
+	t_input		input;
 }				t_game;
 
 /* utils */
@@ -126,6 +143,7 @@ void	put_pixel(t_img *img, int x, int y, int color);
 void	destroy_window(t_game *game);
 int		close_game(t_game *game);
 int		key_press(int keycode, t_game *game);
+int		key_release(int keycode, t_game *game);
 void	run_game(t_game *game);
 void	draw_background(t_game *game);
 void	draw_walls(t_game *game);
