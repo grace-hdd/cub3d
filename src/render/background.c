@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   background.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: grhaddad <grhaddad@student.42beirut.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/11/11 23:44:34 by grhaddad          #+#    #+#             */
+/*   Updated: 2026/11/11 23:44:35 by grhaddad         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 /* ceiling color on the top half of the image, floor color on the bottom half */
